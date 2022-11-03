@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+section {
+  background-image: url(../images/1.jpg);
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding-top: 50px;
+}
+.calc {
+  width: 300px;
+  height: 500px;
+  /*border: 3px solid;*/
+  border-radius: 20px;
+  background: #000;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
+  margin: auto;
+}
+.calc-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.calc-screen p {
+  text-align: end;
+  font-size: 50px;
+  margin-top: 31px;
+}
+.btn {
+  width: 60px;
+  height: 60px;
+  background: #333;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 60px;
+  font-size: 27px;
+  cursor: pointer;
+  user-select: none;
+}
+.btn:nth-child(17) {
+  width: 124px;
+  border-radius: 30px;
+}
+.btn:hover {
+  filter: brightness(120%);
+}
+.btn:active {
+  filter: brightness(70%);
+}
+.bg-gray {
+  background-color: #a6a6a6;
+}
+.bg-orange {
+  background-color: #ff9501;
+}
+.buttons {
+  height: 331px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

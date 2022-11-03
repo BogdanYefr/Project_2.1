@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Randomaizer</title>
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/randomaizer.css">
+</head>
+<body>
+  <section>
+    <div class="container">
+      <div class="container-random d-flex">
+        <div class="input_block d-flex">
+            <input type="text" placeholder="Min" id="minVal">
+            <input type="text" placeholder="Max" id="maxVal">
+            <input type="text" placeholder="Amount" id="amount">
+            <div class="buttons_block">
+              <button class="batonchick" type="button" id="btn">Generate</button>
+              <button class="batonchick" type="button" id="btn1">Remove</button>
+            </div>
+        </div>
+        <ul class="display" id="randomList"></ul>
+    </div>
+  </div>
+  </section>
+  <script src="JS/randomaizer.js"></script>
+</body>
+</html>
