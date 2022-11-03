@@ -91,3 +91,9 @@ btnStartStop.addEventListener('click', function () {
   level1.style.cssText = 'color: gold; filter: brightness(150%);';
 
 })
+
+//кінецт гри
+function gameOver () {
+  questionsField.textContent = 'GAME OVER';
+  questionsField.style.cssText = 'color: red; font-size: 35px; font-weight: 700; padding-top: 28px; background = "#ff000096";';
+}
