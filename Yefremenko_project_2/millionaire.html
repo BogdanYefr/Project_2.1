@@ -1,91 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Millionaire</title>
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/millionaire.css">
-</head>
-<body>
-  <section>
-    <div class="container">
-      <div class="wrapper d-flex">
-        <div class="timer"></div>
-        <div class="help_block d-flex">
-          <input type="button" class="btn" value="50/50" id="fifty-fifty">
-          <input type="button" class="btn" value="&#128381;" id="call_friend">
-        </div>
-        <h1 class="questions_field"></h1>
-        <div class="input_block d-flex">
-          <div class="block_top">
-            <input class="answer-input" type="radio" name="answer" id="answer1" value="0" style="margin-bottom: 15px;">
-            <label for="answer1" class="answer-label">sdfdsf</label><br>
-            <input class="answer-input" type="radio" name="answer" id="answer3" value="2">
-            <label for="answer3" class="answer-label">dsfdsfdsf</label><br>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Millionaire</title>
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/millionaire.css" />
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="wrapper d-flex">
+          <div class="timer"></div>
+          <div class="help_block d-flex">
+            <input type="button" class="btn" value="50/50" id="fifty-fifty" />
+            <input
+              type="button"
+              class="btn"
+              value="&#128381;"
+              id="call_friend"
+            />
           </div>
-          <div class="block_bottom"> 
-            <input class="answer-input" type="radio" name="answer" id="answer2" value="1" style="margin-bottom: 15px;">
-            <label for="answer2" class="answer-label">sdf</label><br>
-            <input class="answer-input" type="radio" name="answer" id="answer4" value="3">
-            <label for="answer4" class="answer-label">sdfdsff</label><br>
+          <h1 class="questions_field"></h1>
+          <div class="input_block d-flex">
+            <div class="block_top">
+              <input
+                class="answer-input"
+                type="radio"
+                name="answer"
+                id="answer1"
+                value="0"
+                style="margin-bottom: 15px"
+              />
+              <label for="answer1" class="answer-label">a</label><br />
+              <input
+                class="answer-input"
+                type="radio"
+                name="answer"
+                id="answer3"
+                value="2"
+              />
+              <label for="answer3" class="answer-label">b</label><br />
+            </div>
+            <div class="block_bottom">
+              <input
+                class="answer-input"
+                type="radio"
+                name="answer"
+                id="answer2"
+                value="1"
+                style="margin-bottom: 15px"
+              />
+              <label for="answer2" class="answer-label">c</label><br />
+              <input
+                class="answer-input"
+                type="radio"
+                name="answer"
+                id="answer4"
+                value="3"
+              />
+              <label for="answer4" class="answer-label">d</label><br />
+            </div>
           </div>
+          <input
+            type="button"
+            class="btn"
+            value="Відповісти"
+            style="width: 90px"
+            id="btn_ans"
+          />
+          <input
+            type="button"
+            class="btn btn_start"
+            value="Старт"
+            style="width: 90px"
+            id="btn_start"
+          />
         </div>
-        <input type="button" class="btn" value="Відповісти" style="width:90px" id ='btn_ans'>
-        <input type="button" class="btn btn_start" value="Старт" style="width:90px" id="btn_start">
-      </div>
-      
-      <table class="table">
-        <tr class="tr">
-          <td>15</td><td>1 000 000</td>
-        </tr>
-        <tr>
-          <td>14</td><td>500 000</td>
-        </tr>
-        <tr>
-          <td>13</td><td>250 000</td>
-        </tr>
-        <tr>
-          <td>12</td><td>125 000</td>
-        </tr>
-        <tr>
-          <td>11</td><td>64 000</td>
-        </tr>
-        <tr class="tr">
-          <td>10</td><td>32 000</td>
-        </tr>
-        <tr>
-          <td>9</td><td>16 000</td>
-        </tr>
-        <tr>
-          <td>8</td><td>8 000</td>
-        </tr>
-        <tr>
-          <td>7</td><td>4 000</td>
-        </tr>
-        <tr>
-          <td>6</td><td>2 000</td>
-        </tr>
-        <tr class="tr">
-          <td>5</td><td>1 000</td>
-        </tr>
-        <tr>
-          <td>4</td><td>500</td>
-        </tr>
-        <tr>
-          <td>3</td><td>300</td>
-        </tr>
-        <tr>
-          <td>2</td><td>200</td>
-        </tr>	        	  	  
-        <tr class="level_active">
-          <td>1</td><td>100</td>
-        </tr>
-      </table>
-    </div>
 
-    <script src="JS/millionaire.js"></script>
-  </section>
-</body>
+        <table class="table">
+          <tr class="tr">
+            <td>15</td>
+            <td>1 000 000</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>500 000</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>250 000</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>125 000</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>64 000</td>
+          </tr>
+          <tr class="tr">
+            <td>10</td>
+            <td>32 000</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>16 000</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>8 000</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>4 000</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>2 000</td>
+          </tr>
+          <tr class="tr">
+            <td>5</td>
+            <td>1 000</td>
+          </tr>
+          <tr class="level3">
+            <td>4</td>
+            <td>500</td>
+          </tr>
+          <tr class="level2">
+            <td>3</td>
+            <td>300</td>
+          </tr>
+          <tr class="level1">
+            <td>2</td>
+            <td>200</td>
+          </tr>
+          <tr class="level0">
+            <td>1</td>
+            <td>100</td>
+          </tr>
+        </table>
+      </div>
+
+      <script src="JS/millionaire.js"></script>
+    </section>
+  </body>
 </html>
