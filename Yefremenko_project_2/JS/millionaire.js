@@ -16,9 +16,16 @@ const questions = [
   'Які з цих прикрас можна зустріти на новорічній ялинці?',
   'Який колір виходить при змішуванні синього і червоного?',
 ];
-const answers = [1, 2, 3, 4];
+const answers = [0, 3, 3, 4,0, 3, 3, 4,0, 3, 3, 4,0, 3, 3, 4,0, 3, 3, 4,0, 3, 3, 4];
 //Поле для питань
 let questionsField = document.querySelector('.questions_field');
+//Отриуємо чекбокси
+const levelFields = [
+  document.querySelector('#level1'),
+  document.querySelector('#answer2'),
+  document.querySelector('#answer3'),
+  document.querySelector('#answer4'),
+];
 
 //Отриуємо чекбокси
 const answerFields = [
@@ -39,15 +46,31 @@ let level1 = document.querySelector('.level_active');
 
 
 
+let level = 0;
 
+function checkAnswer() {
+  // const checkboxAnswer = checkboxes.querySelector().checkWichIsChecked
+  if (checkboxAnswer === answers[level]) {
+    return true
+  } else {return false}
 
+}
 
 //Початок гри.
-questionsField.append(question1);
+function changeLevel(l) {
+  questionsField.textContent = questions[l];
+}
 
+changeLevel(level);
 
 btn.addEventListener('click', (event) => {
-  console.log('Log:', event);
+  if (checkAnswer()) {
+    changeLevel(level);
+    levelFields[level].style(rgreen)
+    level++;
+  } else {
+    gameOver();
+  }
 
 });
 
@@ -64,21 +87,16 @@ btn3.addEventListener('click', (event) => {
 //Таймер
 
 let timerShow = document.querySelector('.timer');
-let seconds = 60; //Початкове значення
+let seconds = 6; //Початкове значення
 
-btnStartStop.addEventListener('click', function () {
-  timer = setInterval(function () {
+const showTimer = () => {
+  const timer = setInterval(function () {
     // Условие если время закончилось то...
-    if (seconds <= 0) {
-      // Таймер удаляется
+    timerShow.innerHTML = `${seconds}`;
+    if (seconds === 0) {
+      gameOver();
       clearInterval(timer);
-      // Выводит 0
-      timerShow.innerHTML = 0;
-    } else {
-      // Создаём строку с выводом времени
-      let strTimer = `${seconds}`;
-      // Выводим строку в блок для показа таймера
-      timerShow.innerHTML = strTimer;
+      seconds = 6
     }
     if (seconds < 6) {
       timerShow.style.background = "#ff000096";
@@ -90,10 +108,14 @@ btnStartStop.addEventListener('click', function () {
 
   level1.style.cssText = 'color: gold; filter: brightness(150%);';
 
-})
+
+}
+
+
+btnStartStop.addEventListener('click', showTimer)
 
 //кінецт гри
-function gameOver () {
+function gameOver() {
   questionsField.textContent = 'GAME OVER';
   questionsField.style.cssText = 'color: red; font-size: 35px; font-weight: 700; padding-top: 28px; background = "#ff000096";';
 }
