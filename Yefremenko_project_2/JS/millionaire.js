@@ -1,32 +1,43 @@
 //Питання
 const questions = [
-  "Що з цього не є косметичним засобом?",
-  "Хто з`їв колобка?",
-  "Якої шахової фігури не існує?",
-  'Про яку сім`ю йдеться у романі "Жовтий князь"?',
-  "У склад будьякої оргаічної речовини входить?",
-  "Як називається зірка, яка вказала волхвам на місце народження Христа?",
-  "Де любопитній Варварі ніс відірвали?",
-  "Хто створив Ейфелеву Башту?",
-  "Який танок виконав Чарлі Чаплин у фільмі «Золота лихоманка»?",
-  "Які сім’ї на думку Л.М Толстого схожі?",
-  "Яке астрономічне явище можна спостерігати один раз у 76 років?",
-  "У яку одежу прийнято плакати, щоб викликати співчування?",
-  "Що взимку роблять молоді олені?",
-  "Які з цих прикрас можна зустріти на новорічній ялинці?",
-  "Який колір виходить при змішуванні синього і червоного?",
+  "Що з цього не є косметичним засобом? А) Помада, B) Тату, C) Крем, D) Пудра",
+  "Хто з`їв колобка? A) Дід, B) Бабка, C) Заяць, D) Лисиця",
+  "Якої шахової фігури не існує? A) Пішка, B) Кінь, C) Дама, D) Король",
+  'Про яку сім`ю йдеться у романі "Жовтий князь"? A) Катранників, B) Голощапових, C) Анциборів, D) Тищенків',
+  "У склад будьякої оргаічної речовини входить? A) Кисень, B) Вуглець, C) Водень, D) Азот",
+  "Як називається зірка, яка вказала волхвам на місце народження Христа? A) Віфлеємська, B) Фіфіємська, C) Коцюбинська, D) Нідерландська",
+  "Де любопитній Варварі ніс відірвали? A) у гаражі, B) на базарі, C) у полі, D) на дискотеці",
+  "Хто створив Ейфелеву Башту? A) Рузвельт, B) Сталін, C) Тесла D) Ейфель",
+  "Який танок виконав Чарлі Чаплин у фільмі «Золота лихоманка»? A) танок булочек, B) танок бургерів, C) танок відбивних D) танок щенят",
+  "Які сім’ї на думку Л.М Толстого схожі? A) Грустні, B) Щасливі, C) Радісні D) Веселі",
+  "Яке астрономічне явище можна спостерігати один раз у 76 років? A) Лунне затемнення, B) Захід сонця, C) Комета Галлея, D) Взрив марсу",
+  "У яку одежу прийнято плакати, щоб викликати співчування? A) Спіднє, B) Штани, C) Куртку, D) Жилетку",
+  "Що взимку роблять молоді олені? A) Відкидають копита, B) Ловлять кроликів, C) Скидають роги, D) Ловлять мисливців",
+  "Які з цих прикрас можна зустріти на новорічній ялинці? A) Буси, B) Сережки, C) Коль'є D) Браслети",
+  "Який колір виходить при змішуванні синього і червоного? A) Чорний, B) Зелений, C) Жовтий D) Фіолетовий",
 ];
 const keys = [
-  0, 3, 3, 4, 0, 3, 3, 4, 0, 3, 3, 4, 0, 3, 3, 4, 0, 3, 3, 4, 0, 3, 3, 4,
+  1, 3, 2, 0, 1, 0, 1, 3, 0, 1, 2, 3, 2, 0, 3
 ];
 //Поле для питань
 let questionsField = document.querySelector(".questions_field");
 //Отриуємо чекбокси
 const levelFields = [
-  document.querySelector(".level0"),
-  document.querySelector(".level1"),
-  document.querySelector(".level2"),
-  document.querySelector(".level3"),
+  document.querySelector(".level_1"),
+  document.querySelector(".level_2"),
+  document.querySelector(".level_3"),
+  document.querySelector(".level_4"),
+  document.querySelector(".level_5"),
+  document.querySelector(".level_6"),
+  document.querySelector(".level_7"),
+  document.querySelector(".level_8"),
+  document.querySelector(".level_9"),
+  document.querySelector(".level_10"),
+  document.querySelector(".level_11"),
+  document.querySelector(".level_12"),
+  document.querySelector(".level_13"),
+  document.querySelector(".level_14"),
+  document.querySelector(".level_15"),
 ];
 
 //Кнопки
@@ -35,17 +46,20 @@ let btn2 = document.querySelector("#fifty-fifty");
 let btn3 = document.querySelector("#call_friend");
 let btnStartStop = document.querySelector("#btn_start");
 
-//level
-// let level1 = document.querySelector(".level_active");
+
 
 let level = 0;
+
 
 //Початок гри.
 function changeLevel(l) {
   questionsField.textContent = questions[l];
+  levelFields[l].style.filter = "brightness(150%)";
+  levelFields[l].style.color = "gold";
 }
 
 changeLevel(level);
+
 
 btn.addEventListener("click", () => {
   // get answer
@@ -60,7 +74,6 @@ btn.addEventListener("click", () => {
   if (answer === keys[level]) {
     level++;
     changeLevel(level);
-    // levelFields[level].style(green);
   } else {
     gameOver();
   }
@@ -98,14 +111,49 @@ const showTimer = () => {
     --seconds; // Уменьшаем таймер
   }, 1000);
 
-  level1.style.cssText = "color: gold; filter: brightness(150%);";
+  //level1.style.cssText = "color: gold; filter: brightness(150%);";
 };
 
-btnStartStop.addEventListener("click", showTimer);
+btnStartStop.addEventListener("click", function () {
+  showTimer();
+  btnStartStop.style.display = 'none';
+}); 
+
 
 //кінецт гри
+let prize = document.querySelector('.prize');
+
 function gameOver() {
   questionsField.textContent = "GAME OVER";
   questionsField.style.cssText =
     'color: red; font-size: 35px; font-weight: 700; padding-top: 28px; background = "#ff000096";';
+  questionsField.style.background = '#ff000070';
+  levelFields[level].style.color = 'red';
+  document.querySelector('.input_block').style.display = 'none';
+  btn.style.display = 'none';
+  prize.style.display = 'block';
+  whatPrize();
 }
+
+//счетчик 
+
+function whatPrize () {
+  if (level > 4 && level < 11) {
+    prize.textContent = 'Ви здобули 1000грн!';
+  } 
+  if (level > 9 && level < 16) {
+    prize.textContent = 'Ви здобули 32000грн!';
+  }
+}
+
+function winner () {
+  document.querySelector('.input_block').style.display = 'none';
+  btn.style.display = 'none';
+  prize.style.display = 'block';
+  prize.textContent = 'Вітаю!!! Ви здобули 1000000грн!';
+  prize.style.fontSize = '40px';
+  questionsField.style.display = 'none';
+}
+  
+
+
