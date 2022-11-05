@@ -40,6 +40,13 @@ const levelFields = [
   document.querySelector(".level_15"),
 ];
 
+//const levelFields = [];
+
+//for (let i = 0; i <= 15; i++) {
+//  levelFields.push(document.querySelector('.level_' + i));
+//}
+
+
 //Кнопки
 let btn = document.querySelector("#btn_ans");
 let btn2 = document.querySelector("#fifty-fifty");
@@ -51,6 +58,8 @@ let btnStartStop = document.querySelector("#btn_start");
 let level = 0;
 let timer; //винесемо змінну на верх для глобальної видимості
 let seconds = 59; //Початкове значення таймера
+let checkboxes = document.getElementsByName("answer"); //винесемо змінну на верх для глобальної видимості
+let call_help;
 
 //Початок гри.
 function changeLevel(l) {
@@ -59,12 +68,10 @@ function changeLevel(l) {
   levelFields[l].style.color = "gold";
 }
 
-//changeLevel(level);
-
 
 btn.addEventListener("click", () => {
   // get answer
-  const checkboxes = document.getElementsByName("answer");
+  //checkboxes = document.getElementsByName("answer");
   let answer;
   checkboxes.forEach((checkbox, i) => {
     if (checkbox.checked) {
@@ -81,17 +88,26 @@ btn.addEventListener("click", () => {
   } else {
     gameOver();
   }
+
+  call_help.style.opacity = '1';
 });
 
 btn2.addEventListener("click", () => {
   console.log("50/50");
 });
 
+//дзвінок другу
+
+
+
 btn3.addEventListener("click", () => {
   const random =
     Math.floor(Math.random() * (Math.floor(3) - Math.ceil(0) + 1)) +
     Math.ceil(0);
-  questionsField.textContent = questions[random];
+  call_help = checkboxes[random];
+  call_help.style.opacity = '0.4';
+  btn3.setAttribute('disabled', 'disabled');
+  btn3.style.opacity = '0.7';
 });
 
 //Таймер
