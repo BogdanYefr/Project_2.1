@@ -49,7 +49,8 @@ let btnStartStop = document.querySelector("#btn_start");
 
 
 let level = 0;
-
+let timer; //винесемо змінну на верх для глобальної видимості
+let seconds = 59; //Початкове значення таймера
 
 //Початок гри.
 function changeLevel(l) {
@@ -58,7 +59,7 @@ function changeLevel(l) {
   levelFields[l].style.color = "gold";
 }
 
-changeLevel(level);
+//changeLevel(level);
 
 
 btn.addEventListener("click", () => {
@@ -74,6 +75,9 @@ btn.addEventListener("click", () => {
   if (answer === keys[level]) {
     level++;
     changeLevel(level);
+    clearInterval(timer);
+    seconds = 60;
+    showTimer();
   } else {
     gameOver();
   }
@@ -93,16 +97,18 @@ btn3.addEventListener("click", () => {
 //Таймер
 
 let timerShow = document.querySelector(".timer");
-let seconds = 60; //Початкове значення
+
+
+
 
 const showTimer = () => {
-  const timer = setInterval(function () {
+   timer = setInterval(function () {
     // Условие если время закончилось то...
     timerShow.innerHTML = `${seconds}`;
     if (seconds === 0) {
       gameOver();
       clearInterval(timer);
-      seconds = 60;
+      seconds = 59;
     }
     if (seconds < 6) {
       timerShow.style.background = "#ff000096";
@@ -116,7 +122,10 @@ const showTimer = () => {
 
 btnStartStop.addEventListener("click", function () {
   showTimer();
+  changeLevel(level);
   btnStartStop.style.display = 'none';
+  document.querySelector('.d-none').style.display = 'flex';
+  btn.style.display = 'block'
 }); 
 
 
@@ -135,7 +144,7 @@ function gameOver() {
   whatPrize();
 }
 
-//счетчик 
+//счетчик
 
 function whatPrize () {
   if (level > 4 && level < 11) {

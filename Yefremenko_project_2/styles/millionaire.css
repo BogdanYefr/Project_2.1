@@ -103,3 +103,6 @@ section {
   font-size: 27px;
   display: none;
 }
+.d-none {
+  display: none;
+}
