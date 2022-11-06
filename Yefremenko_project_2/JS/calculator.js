@@ -4,7 +4,7 @@ let sign = ''; //знак операції
 let finish = false;
 
 const digit = ['0','1','2','3','4','5','6','7','8','9','.']; // для перевірки того, що натиснуто
-const action = ['-','+','X','/']; //для перевірки натиснутої операції
+const action = ['-','+','X','/','%']; //для перевірки натиснутої операції
 
 //екран
 const screen = document.querySelector('.calc-screen p');
@@ -57,7 +57,7 @@ document.querySelector('.buttons').onclick = (event) => {
     return;
   }
 
-  //якщо натснуто =
+  //якщо натиснуто =
   if (key === '=') {
     if (b === '') b = a;
     switch (sign) {
@@ -72,8 +72,12 @@ document.querySelector('.buttons').onclick = (event) => {
           break;
          case '/':
           a = a / b;
-          break;   
+          break;
+         case '%':
+          a = a - b * (a / 100);
+          break;
     }
+    
     finish = true;
     screen.textContent = a;
     console.log(a, b, sign);

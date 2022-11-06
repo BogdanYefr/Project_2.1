@@ -109,3 +109,11 @@ section {
 .opacity_zero {
   opacity: 0;
 }
+.true_answers {
+  position: absolute;
+  top: 20px;
+  color: gold;
+  filter: brightness(2.5);
+  width: 514px;
+  left: 40px;
+}

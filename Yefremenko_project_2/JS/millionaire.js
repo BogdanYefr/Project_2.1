@@ -15,6 +15,7 @@ const questions = [
   "Що взимку роблять молоді олені? A) Відкидають копита, B) Ловлять кроликів, C) Скидають роги, D) Ловлять мисливців",
   "Які з цих прикрас можна зустріти на новорічній ялинці? A) Буси, B) Сережки, C) Коль'є D) Браслети",
   "Який колір виходить при змішуванні синього і червоного? A) Чорний, B) Зелений, C) Жовтий D) Фіолетовий",
+  "заглушка"
 ];
 const keys = [
   1, 3, 2, 0, 1, 0, 1, 3, 0, 1, 2, 3, 2, 0, 3
@@ -74,7 +75,6 @@ function changeLevel(l) {
 
 btn.addEventListener("click", () => {
   // get answer
-  //checkboxes = document.getElementsByName("answer");
   let answer;
   checkboxes.forEach((checkbox, i) => {
     if (checkbox.checked) {
@@ -92,8 +92,12 @@ btn.addEventListener("click", () => {
   } else {
     gameOver();
   }
-
+  
+  //if (questions[level] === 'заглушка') {
+  //  winner();
+  //}
   call_help.style.opacity = '1';
+  
   
 });
 
@@ -178,7 +182,7 @@ function gameOver() {
   whatPrize();
 }
 
-//счетчик
+//счетчик призу
 
 function whatPrize () {
   if (level > 4 && level < 11) {
@@ -188,6 +192,7 @@ function whatPrize () {
     prize.textContent = 'Ви здобули 32000грн!';
   }
 }
+
 
 function winner () {
   document.querySelector('.input_block').style.display = 'none';
