@@ -60,6 +60,9 @@ let timer; //винесемо змінну на верх для глобальн
 let seconds = 59; //Початкове значення таймера
 let checkboxes = document.getElementsByName("answer"); //винесемо змінну на верх для глобальної видимості
 let call_help;
+let trueAns; //отримали правильну відповідь для 50/50
+let falseAns; //отримали неправильну відповідь для 50/50
+
 
 //Початок гри.
 function changeLevel(l) {
@@ -77,6 +80,7 @@ btn.addEventListener("click", () => {
     if (checkbox.checked) {
       answer = i;
     }
+    checkbox.classList.remove('opacity_zero');
   });
   // check answer
   if (answer === keys[level]) {
@@ -90,15 +94,29 @@ btn.addEventListener("click", () => {
   }
 
   call_help.style.opacity = '1';
+  
 });
 
+
+//50\50
 btn2.addEventListener("click", () => {
-  console.log("50/50");
+  let falseAnswers = []; //отримали масив з неправильними
+  for (let i = 0; i <= 3; i++) {
+    if (keys[level] === i) {
+      trueAns = checkboxes[i];
+    } 
+    if (keys[level] != i) {
+      falseAnswers.push(checkboxes[i]);
+    }
+    checkboxes[i].classList.add('opacity_zero'); //навісимо опаситі на всі елементи масиму
+  }
+  falseAns = falseAnswers[0].classList.remove('opacity_zero'); // перша неправильна 3 трьох неправильних з відміною опаситі
+  trueAns.classList.remove('opacity_zero');
+  btn2.setAttribute('disabled', 'disabled');
+  btn2.style.opacity = '0.7';
 });
 
 //дзвінок другу
-
-
 
 btn3.addEventListener("click", () => {
   const random =
