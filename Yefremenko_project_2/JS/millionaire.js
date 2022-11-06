@@ -15,55 +15,31 @@ const questions = [
   "Що взимку роблять молоді олені? A) Відкидають копита, B) Ловлять кроликів, C) Скидають роги, D) Ловлять мисливців",
   "Які з цих прикрас можна зустріти на новорічній ялинці? A) Буси, B) Сережки, C) Коль'є D) Браслети",
   "Який колір виходить при змішуванні синього і червоного? A) Чорний, B) Зелений, C) Жовтий D) Фіолетовий",
-  "заглушка"
+  "заглушка",
 ];
-const keys = [
-  1, 3, 2, 0, 1, 0, 1, 3, 0, 1, 2, 3, 2, 0, 3
-];
+const keys = [1, 3, 2, 0, 1, 0, 1, 3, 0, 1, 2, 3, 2, 0, 3];
 //Поле для питань
 let questionsField = document.querySelector(".questions_field");
-//Отриуємо чекбокси
-const levelFields = [
-  document.querySelector(".level_1"),
-  document.querySelector(".level_2"),
-  document.querySelector(".level_3"),
-  document.querySelector(".level_4"),
-  document.querySelector(".level_5"),
-  document.querySelector(".level_6"),
-  document.querySelector(".level_7"),
-  document.querySelector(".level_8"),
-  document.querySelector(".level_9"),
-  document.querySelector(".level_10"),
-  document.querySelector(".level_11"),
-  document.querySelector(".level_12"),
-  document.querySelector(".level_13"),
-  document.querySelector(".level_14"),
-  document.querySelector(".level_15"),
-];
-
-//const levelFields = [];
-
-//for (let i = 0; i <= 15; i++) {
-//  levelFields.push(document.querySelector('.level_' + i));
-//}
-
+const levelFields = [];
+//Отриуємо радіобаттони
+for (let i = 1; i <= 15; i++) {
+  levelFields.push(document.querySelector(".level_" + i));
+}
+let inputBlock = document.querySelector(".input_block");
 
 //Кнопки
-let btn = document.querySelector("#btn_ans");
+let btnAnswer = document.querySelector("#btn_ans");
 let btn2 = document.querySelector("#fifty-fifty");
 let btn3 = document.querySelector("#call_friend");
-let btnStartStop = document.querySelector("#btn_start");
-
-
+let btnStart = document.querySelector("#btn_start");
 
 let level = 0;
 let timer; //винесемо змінну на верх для глобальної видимості
 let seconds = 59; //Початкове значення таймера
-let checkboxes = document.getElementsByName("answer"); //винесемо змінну на верх для глобальної видимості
+let radioButtons = document.getElementsByName("answer"); //винесемо змінну на верх для глобальної видимості
 let call_help;
 let trueAns; //отримали правильну відповідь для 50/50
 let falseAns; //отримали неправильну відповідь для 50/50
-
 
 //Початок гри.
 function changeLevel(l) {
@@ -72,52 +48,59 @@ function changeLevel(l) {
   levelFields[l].style.color = "gold";
 }
 
+radioButtons.forEach((elem) => {
+  elem.addEventListener("change", () => {
+    disableAnswerButton(false);
+  });
+});
 
-btn.addEventListener("click", () => {
+btnAnswer.addEventListener("click", () => {
   // get answer
   let answer;
-  checkboxes.forEach((checkbox, i) => {
+  radioButtons.forEach((checkbox, i) => {
     if (checkbox.checked) {
       answer = i;
     }
-    checkbox.classList.remove('opacity_zero');
+    checkbox.checked = false;
+    checkbox.classList.remove("opacity_zero");
   });
   // check answer
   if (answer === keys[level]) {
-    level++;
-    changeLevel(level);
+    if (level === 14) {
+      winner();
+    } else {
+      level++;
+      changeLevel(level);
+    }
     clearInterval(timer);
     seconds = 60;
     showTimer();
+    disableAnswerButton(true);
   } else {
     gameOver();
+    clearInterval(timer);
   }
-  
-  //if (questions[level] === 'заглушка') {
-  //  winner();
-  //}
-  call_help.style.opacity = '1';
-  
-  
+  if (call_help) {
+    call_help.style.opacity = "1";
+  }
 });
-
 
 //50\50
 btn2.addEventListener("click", () => {
   let falseAnswers = []; //отримали масив з неправильними
   for (let i = 0; i <= 3; i++) {
     if (keys[level] === i) {
-      trueAns = checkboxes[i];
-    } 
-    if (keys[level] != i) {
-      falseAnswers.push(checkboxes[i]);
+      trueAns = radioButtons[i];
     }
-    checkboxes[i].classList.add('opacity_zero'); //навісимо опаситі на всі елементи масиму
+    if (keys[level] != i) {
+      falseAnswers.push(radioButtons[i]);
+    }
+    radioButtons[i].classList.add("opacity_zero"); //навісимо опаситі на всі елементи масиму
   }
-  falseAns = falseAnswers[0].classList.remove('opacity_zero'); // перша неправильна 3 трьох неправильних з відміною опаситі
-  trueAns.classList.remove('opacity_zero');
-  btn2.setAttribute('disabled', 'disabled');
-  btn2.style.opacity = '0.7';
+  falseAns = falseAnswers[0].classList.remove("opacity_zero"); // перша неправильна 3 трьох неправильних з відміною опаситі
+  trueAns.classList.remove("opacity_zero");
+  btn2.setAttribute("disabled", "disabled");
+  btn2.style.opacity = "0.7";
 });
 
 //дзвінок другу
@@ -126,21 +109,20 @@ btn3.addEventListener("click", () => {
   const random =
     Math.floor(Math.random() * (Math.floor(3) - Math.ceil(0) + 1)) +
     Math.ceil(0);
-  call_help = checkboxes[random];
-  call_help.style.opacity = '0.4';
-  btn3.setAttribute('disabled', 'disabled');
-  btn3.style.opacity = '0.7';
+  call_help = radioButtons[random];
+  call_help.checked = true;
+  call_help = radioButtons[random];
+  call_help.style.opacity = "0.4";
+  btn3.setAttribute("disabled", "disabled");
+  btn3.style.opacity = "0.7";
 });
 
 //Таймер
 
 let timerShow = document.querySelector(".timer");
 
-
-
-
 const showTimer = () => {
-   timer = setInterval(function () {
+  timer = setInterval(function () {
     // Условие если время закончилось то...
     timerShow.innerHTML = `${seconds}`;
     if (seconds === 0) {
@@ -154,54 +136,55 @@ const showTimer = () => {
 
     --seconds; // Уменьшаем таймер
   }, 1000);
-
-  //level1.style.cssText = "color: gold; filter: brightness(150%);";
 };
 
-btnStartStop.addEventListener("click", function () {
+btnStart.addEventListener("click", function () {
+  disableAnswerButton(true);
   showTimer();
   changeLevel(level);
-  btnStartStop.style.display = 'none';
-  document.querySelector('.d-none').style.display = 'flex';
-  btn.style.display = 'block'
-}); 
-
+  btnStart.classList.add("d-none");
+  inputBlock.classList.replace("d-none", "d-flex");
+  btnAnswer.style.display = "block";
+});
 
 //кінецт гри
-let prize = document.querySelector('.prize');
+let prize = document.querySelector(".prize");
 
 function gameOver() {
   questionsField.textContent = "GAME OVER";
   questionsField.style.cssText =
     'color: red; font-size: 35px; font-weight: 700; padding-top: 28px; background = "#ff000096";';
-  questionsField.style.background = '#ff000070';
-  levelFields[level].style.color = 'red';
-  document.querySelector('.input_block').style.display = 'none';
-  btn.style.display = 'none';
-  prize.style.display = 'block';
+  questionsField.style.background = "#ff000070";
+  levelFields[level].style.color = "red";
+  inputBlock.classList.replace("d-flex", "d-none");
+  btnAnswer.style.display = "none";
+  prize.style.display = "block";
   whatPrize();
 }
 
 //счетчик призу
 
-function whatPrize () {
+function whatPrize() {
   if (level > 4 && level < 11) {
-    prize.textContent = 'Ви здобули 1000грн!';
-  } 
+    prize.textContent = "Ви здобули 1000грн!";
+  }
   if (level > 9 && level < 16) {
-    prize.textContent = 'Ви здобули 32000грн!';
+    prize.textContent = "Ви здобули 32000грн!";
   }
 }
 
-
-function winner () {
-  document.querySelector('.input_block').style.display = 'none';
-  btn.style.display = 'none';
-  prize.style.display = 'block';
-  prize.textContent = 'Вітаю!!! Ви здобули 1000000грн!';
-  prize.style.fontSize = '40px';
-  questionsField.style.display = 'none';
+function winner() {
+  inputBlock.style.display = "none";
+  btnAnswer.style.display = "none";
+  prize.style.display = "block";
+  prize.textContent = "Вітаю!!! Ви здобули 1000000грн!";
+  prize.style.fontSize = "40px";
+  questionsField.style.display = "none";
+  clearInterval(timer);
+  seconds = 60;
 }
-  
 
-
+function disableAnswerButton(isDisabled) {
+  btnAnswer.disabled = isDisabled;
+  btnAnswer.style.opacity = isDisabled ? "0.7" : "1";
+}
