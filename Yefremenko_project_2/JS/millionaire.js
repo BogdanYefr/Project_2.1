@@ -1,4 +1,4 @@
-//Питання
+
 const questions = [
   "Що з цього не є косметичним засобом? А) Помада, B) Тату, C) Крем, D) Пудра",
   "Хто з`їв колобка? A) Дід, B) Бабка, C) Заяць, D) Лисиця",
@@ -15,51 +15,51 @@ const questions = [
   "Що взимку роблять молоді олені? A) Відкидають копита, B) Ловлять кроликів, C) Скидають роги, D) Ловлять мисливців",
   "Які з цих прикрас можна зустріти на новорічній ялинці? A) Буси, B) Сережки, C) Коль'є D) Браслети",
   "Який колір виходить при змішуванні синього і червоного? A) Чорний, B) Зелений, C) Жовтий D) Фіолетовий",
-  "заглушка",
 ];
+
 const keys = [1, 3, 2, 0, 1, 0, 1, 3, 0, 1, 2, 3, 2, 0, 3];
 const levelFields = [];
-
 const inputBlock = document.querySelector(".input_block");
-
-//Поле для питань
 const questionsField = document.querySelector(".questions_field");
+const timerShow = document.querySelector(".timer"); //timer 
 
-//Кнопки
+//buttons
 const btnAnswer = document.querySelector("#btn_ans");
 const btnFiftyFifty = document.querySelector("#fifty-fifty");
 const btnCallFriend = document.querySelector("#call_friend");
 const btnStart = document.querySelector("#btn_start");
 const radioButtons = document.getElementsByName("answer"); //винесемо змінну на верх для глобальної видимості
 
+
 let level = 0;
-let timer; //винесемо змінну на верх для глобальної видимості
-let seconds = 59; //Початкове значення таймера
-let call_help;
-let trueAns; //отримали правильну відповідь для 50/50
-let falseAns; //отримали неправильну відповідь для 50/50
+let timer; 
+let seconds = 59; //initial value
+let call_help;    //call a friend
+let trueAns;      //got the correct answer for 50/50
+let falseAns;     //got the wrong answer for 50/50
+let prize = document.querySelector(".prize"); //not burn prize
 
-//Таймер
-const timerShow = document.querySelector(".timer");
 
-//Отриуємо радіобаттони
+//got the levels
 for (let i = 1; i <= 15; i++) {
   levelFields.push(document.querySelector(".level_" + i));
 }
 
-//Початок гри.
+//level change and mark
 function changeLevel(l) {
   questionsField.textContent = questions[l];
   levelFields[l].style.filter = "brightness(150%)";
   levelFields[l].style.color = "gold";
 }
 
+//disable(false) after selection
 radioButtons.forEach((elem) => {
   elem.addEventListener("change", () => {
     disableAnswerButton(false);
   });
 });
 
+//answer button
 btnAnswer.addEventListener("click", () => {
   // get answer
   let answer;
@@ -73,6 +73,7 @@ btnAnswer.addEventListener("click", () => {
   // check answer
   if (answer === keys[level]) {
     if (level === 14) {
+      clearInterval(timer);
       winner();
     } else {
       level++;
@@ -92,9 +93,9 @@ btnAnswer.addEventListener("click", () => {
   }
 });
 
-//50\50
+//50\50 button
 btnFiftyFifty.addEventListener("click", () => {
-  let falseAnswers = []; //отримали масив з неправильними
+  let falseAnswers = []; //got the array with false answers
   for (let i = 0; i <= 3; i++) {
     if (keys[level] === i) {
       trueAns = radioButtons[i];
@@ -102,16 +103,15 @@ btnFiftyFifty.addEventListener("click", () => {
     if (keys[level] != i) {
       falseAnswers.push(radioButtons[i]);
     }
-    radioButtons[i].classList.add("opacity_zero"); //навісимо опаситі на всі елементи масиму
+    radioButtons[i].classList.add("opacity_zero"); //add opacity for all elements of array
   }
-  falseAns = falseAnswers[0].classList.remove("opacity_zero"); // перша неправильна 3 трьох неправильних з відміною опаситі
+  falseAns = falseAnswers[0].classList.remove("opacity_zero"); //first false of three answers with trmove opacity
   trueAns.classList.remove("opacity_zero");
   btnFiftyFifty.setAttribute("disabled", "disabled");
   btnFiftyFifty.style.opacity = "0.7";
 });
 
-//дзвінок другу
-
+//call a friend
 btnCallFriend.addEventListener("click", () => {
   const random =
     Math.floor(Math.random() * (Math.floor(3) - Math.ceil(0) + 1)) +
@@ -125,11 +125,12 @@ btnCallFriend.addEventListener("click", () => {
   disableAnswerButton(false);
 });
 
+
+//timer
 const showTimer = () => {
   timer = setInterval(function () {
-    // Условие если время закончилось то...
     timerShow.innerHTML = `${seconds}`;
-    if (seconds === 0) {
+    if (seconds <= 0) {
       gameOver();
       clearInterval(timer);
       seconds = 59;
@@ -137,11 +138,11 @@ const showTimer = () => {
     if (seconds < 6) {
       timerShow.classList.add("danger");
     }
-
-    --seconds; // Уменьшаем таймер
+    --seconds;
   }, 1000);
 };
 
+//start button
 btnStart.addEventListener("click", function () {
   disableAnswerButton(true);
   showTimer();
@@ -151,8 +152,8 @@ btnStart.addEventListener("click", function () {
   btnAnswer.style.display = "block";
 });
 
-//кінецт гри
-let prize = document.querySelector(".prize");
+
+
 
 function gameOver() {
   questionsField.textContent = "GAME OVER";
@@ -166,7 +167,7 @@ function gameOver() {
   whatPrize();
 }
 
-//счетчик призу
+
 
 function whatPrize() {
   if (level > 4 && level < 11) {
@@ -185,7 +186,6 @@ function winner() {
   prize.style.fontSize = "40px";
   questionsField.style.display = "none";
   clearInterval(timer);
-  seconds = 60;
 }
 
 function disableAnswerButton(isDisabled) {
