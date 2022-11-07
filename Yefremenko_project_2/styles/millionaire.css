@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 .container {
   width: 90%;
@@ -87,7 +87,6 @@ section {
   filter: brightness(120%);
 }
 
-
 .btn_start {
   position: absolute;
   right: 40px;
@@ -116,4 +115,8 @@ section {
   filter: brightness(2.5);
   width: 514px;
   left: 40px;
+}
+
+.danger {
+  background: #ff000096;
 }

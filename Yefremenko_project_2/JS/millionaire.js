@@ -18,28 +18,34 @@ const questions = [
   "заглушка",
 ];
 const keys = [1, 3, 2, 0, 1, 0, 1, 3, 0, 1, 2, 3, 2, 0, 3];
-//Поле для питань
-let questionsField = document.querySelector(".questions_field");
 const levelFields = [];
-//Отриуємо радіобаттони
-for (let i = 1; i <= 15; i++) {
-  levelFields.push(document.querySelector(".level_" + i));
-}
-let inputBlock = document.querySelector(".input_block");
+
+const inputBlock = document.querySelector(".input_block");
+
+//Поле для питань
+const questionsField = document.querySelector(".questions_field");
 
 //Кнопки
-let btnAnswer = document.querySelector("#btn_ans");
-let btn2 = document.querySelector("#fifty-fifty");
-let btn3 = document.querySelector("#call_friend");
-let btnStart = document.querySelector("#btn_start");
+const btnAnswer = document.querySelector("#btn_ans");
+const btnFiftyFifty = document.querySelector("#fifty-fifty");
+const btnCallFriend = document.querySelector("#call_friend");
+const btnStart = document.querySelector("#btn_start");
+const radioButtons = document.getElementsByName("answer"); //винесемо змінну на верх для глобальної видимості
 
 let level = 0;
 let timer; //винесемо змінну на верх для глобальної видимості
 let seconds = 59; //Початкове значення таймера
-let radioButtons = document.getElementsByName("answer"); //винесемо змінну на верх для глобальної видимості
 let call_help;
 let trueAns; //отримали правильну відповідь для 50/50
 let falseAns; //отримали неправильну відповідь для 50/50
+
+//Таймер
+const timerShow = document.querySelector(".timer");
+
+//Отриуємо радіобаттони
+for (let i = 1; i <= 15; i++) {
+  levelFields.push(document.querySelector(".level_" + i));
+}
 
 //Початок гри.
 function changeLevel(l) {
@@ -71,14 +77,15 @@ btnAnswer.addEventListener("click", () => {
     } else {
       level++;
       changeLevel(level);
+      showTimer();
     }
+    timerShow.classList.remove("danger");
     clearInterval(timer);
     seconds = 60;
-    showTimer();
     disableAnswerButton(true);
   } else {
-    gameOver();
     clearInterval(timer);
+    gameOver();
   }
   if (call_help) {
     call_help.style.opacity = "1";
@@ -86,7 +93,7 @@ btnAnswer.addEventListener("click", () => {
 });
 
 //50\50
-btn2.addEventListener("click", () => {
+btnFiftyFifty.addEventListener("click", () => {
   let falseAnswers = []; //отримали масив з неправильними
   for (let i = 0; i <= 3; i++) {
     if (keys[level] === i) {
@@ -99,13 +106,13 @@ btn2.addEventListener("click", () => {
   }
   falseAns = falseAnswers[0].classList.remove("opacity_zero"); // перша неправильна 3 трьох неправильних з відміною опаситі
   trueAns.classList.remove("opacity_zero");
-  btn2.setAttribute("disabled", "disabled");
-  btn2.style.opacity = "0.7";
+  btnFiftyFifty.setAttribute("disabled", "disabled");
+  btnFiftyFifty.style.opacity = "0.7";
 });
 
 //дзвінок другу
 
-btn3.addEventListener("click", () => {
+btnCallFriend.addEventListener("click", () => {
   const random =
     Math.floor(Math.random() * (Math.floor(3) - Math.ceil(0) + 1)) +
     Math.ceil(0);
@@ -113,13 +120,10 @@ btn3.addEventListener("click", () => {
   call_help.checked = true;
   call_help = radioButtons[random];
   call_help.style.opacity = "0.4";
-  btn3.setAttribute("disabled", "disabled");
-  btn3.style.opacity = "0.7";
+  btnCallFriend.setAttribute("disabled", "disabled");
+  btnCallFriend.style.opacity = "0.7";
+  disableAnswerButton(false);
 });
-
-//Таймер
-
-let timerShow = document.querySelector(".timer");
 
 const showTimer = () => {
   timer = setInterval(function () {
@@ -131,7 +135,7 @@ const showTimer = () => {
       seconds = 59;
     }
     if (seconds < 6) {
-      timerShow.style.background = "#ff000096";
+      timerShow.classList.add("danger");
     }
 
     --seconds; // Уменьшаем таймер
