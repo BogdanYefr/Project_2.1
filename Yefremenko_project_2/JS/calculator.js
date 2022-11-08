@@ -69,9 +69,11 @@ document.querySelector('.buttons').onclick = (event) => {
           break;
         case 'X':
           a = a * b;
+          a = a.toFixed(2)
           break;
          case '/':
           a = a / b;
+          a = a.toFixed(2)
           break;
          case '%':
           a = a - b * (a / 100);

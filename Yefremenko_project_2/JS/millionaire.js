@@ -21,7 +21,7 @@ const keys = [1, 3, 2, 0, 1, 0, 1, 3, 0, 1, 2, 3, 2, 0, 3];
 const levelFields = [];
 const inputBlock = document.querySelector(".input_block");
 const questionsField = document.querySelector(".questions_field");
-const timerShow = document.querySelector(".timer"); //timer 
+ 
 
 //buttons
 const btnAnswer = document.querySelector("#btn_ans");
@@ -38,7 +38,7 @@ let call_help;    //call a friend
 let trueAns;      //got the correct answer for 50/50
 let falseAns;     //got the wrong answer for 50/50
 let prize = document.querySelector(".prize"); //not burn prize
-
+const timerShow = document.querySelector(".timer"); //timer
 
 //got the levels
 for (let i = 1; i <= 15; i++) {
